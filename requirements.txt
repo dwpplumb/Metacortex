@@ -1,0 +1,10 @@
+numpy==1.26.4
+gensim==4.3.3
+scipy==1.11.4
+fastapi==0.110.0
+openai>=1.0.0
+python-arango==7.9.0
+uvicorn[standard]
+scikit-learn==1.4.2
+google-generativeai>=0.3.2
+ollama==0.1.6  # oder aktuelle Version

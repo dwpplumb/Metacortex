@@ -1,0 +1,20 @@
+# Basis: kleiner Python-Image mit Debian-Unterbau
+FROM python:3.11-slim-bookworm
+
+# Setze Arbeitsverzeichnis
+WORKDIR /app
+
+# Kopiere den Code in das Image (wird durch docker-compose Volume ersetzt)
+COPY . .
+
+# Optional: Systempakete installieren (z. B. für uvicorn, pip)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installiere Python-Abhängigkeiten (wenn requirements.txt existiert)
+COPY ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r ./requirements.txt
+
+# Setze default command (wird durch docker-compose überschrieben)
+CMD ["uvicorn", "core.metacortex_api:app", "--host", "0.0.0.0", "--port", "11435"]
